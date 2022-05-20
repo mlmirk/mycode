@@ -5,8 +5,6 @@ from questionBank import QandA
   of Harry potter hard trivia"""
 
 
-#questions dictionary 
-
 validAnswers= ['1','2','3','4']
 
 #caluculats win percentage based on 
