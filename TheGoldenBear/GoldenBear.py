@@ -124,26 +124,25 @@ while True:
 
 
     if move[0] == 'combine' and currentRoom == 'Counter':
-        print("hitting")
-        if "lemonade" and "tea" and "ice" and 'pint-glass' in inventory:
+        if "lemonade" in inventory and "tea"in inventory and "ice"in inventory and 'pint-glass'in inventory and inventory.__len__() ==4:
             inventory.clear()
             inventory.append('arnold palmer')
-        elif "champagne" and "orange juice" and 'pint-glass' in inventory:
+        elif "champagne"in inventory and "orange juice"in inventory and 'pint-glass' in inventory and inventory.__len__() ==3 :
             inventory.clear()
             inventory.append('mimosa')
-        elif "vodka" and "orange juice" and 'pint-glass' in inventory:
+        elif "vodka"in inventory and "orange juice"in inventory and 'pint-glass' in inventory and inventory.__len__()==3:
             inventory.clear()
             inventory.append('screwdriver')
-        elif "milk" and "pepsi" and ("pint-glass" or "shot-glass" or 'das-boot'or 'tea-cup'):
+        elif "milk" and "pepsi" and ("pint-glass" or "shot-glass" or 'das-boot'or 'tea-cup' in inventory) and inventory.__len__()==3:
             inventory.clear()
             inventory.append('pilk')
-        elif "milk" and "chocalate syrup" and ("pint-glass" or "shot-glass" or 'das-boot'or 'tea-cup') in inventory:
+        elif "milk" in inventory and "chocolate sryup"in inventory and ("pint-glass" or "shot-glass" or 'das-boot'or 'tea-cup') in inventoryinventory.__len__()==3:
             inventory.clear()
             inventory.append('chocolate milk')
-        elif "beer"  and 'das-boot' in inventory:
+        elif "beer"in inventory  and 'das-boot' in inventory and inventory.__len__()==2:
             inventory.clear()
             inventory.append('DAS BOOT OF FINE GERMAN BEER')
-        elif "whiskey" and 'yohoo'  and ("pint-glass" or "shot-glass" or 'das-boot'or 'tea-cup')in inventory:
+        elif "whiskey"in inventory and 'yohoo' in inventory and ("pint-glass" or "shot-glass" or 'das-boot'or 'tea-cup')in inventory and inventory.__len__()==3:
             inventory.clear()
             inventory.append('A Lou Stratia Specialy Brought to you from Bayonne, NJ')
         else:
@@ -163,7 +162,7 @@ while True:
             print("The Golden Bear takes a nine iron to you and you have died")
             break
     os.system('clear')   
-    if move[0] == 'combine' and rooms[currentRoom] != 'Counter':
+    if move[0] == 'combine' and currentRoom != 'Counter':
         print("You must be at the counter to do this")
 
     if move[0] == 'offer' and currentRoom != 'Den':
