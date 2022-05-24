@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 import os
 
-# Replace RPG starter project with this code when new instructions are live
-
 def showInstructions():
     #print a main menu and the commands
     print('''
@@ -13,9 +11,7 @@ Commands:
     get [item]
     combine
     offer
-    help
-
-''')
+    help''')
 
 def showStatus():
     #print the player's current status
@@ -75,9 +71,8 @@ rooms = {
             }
             }
 
-#start the player in the Den
-currentRoom = 'Den'
 
+currentRoom = 'Den'
 showInstructions()
 
 #loop forever
@@ -86,14 +81,10 @@ while True:
 
     #get the player's next 'move'
     #.split() breaks it up into an list array
-    #eg typing 'go east' would give the list:
-    #['go','east']
     move = ''
     while move == '':
-        move = input('>')
-    # split allows an items to have a space on them
-    # get golden key is returned ["get", "golden key"]          
-    move = move.lower().split(" ", 1)
+        move = input('>')       
+    move = move.lower().strip().split(" ", 1)
 
     #if they type 'go' first
     if move[0] == 'go' and move.__len__()>1 : 
@@ -119,7 +110,6 @@ while True:
             remove= temp.index(move[1])
             del rooms[currentRoom]['items'][remove]
             #print(rooms[currentRoom]['items'])
-#otherwise, if the item isn't there to get
         else:
 #tell them they can't get it
             print('Can\'t get ' + move[1] + '!')
@@ -158,6 +148,7 @@ while True:
             print("It matters not how much pilk is consumed a single drop of pilk is enough to kill\n Congrats You have killed Arnold Palmer")
             break
         elif lives > 0:
+            inventory.clear()
             lives-=1
             print("Try and create another Bev")
         else:
