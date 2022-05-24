@@ -11,8 +11,9 @@ RPRG Game (Second R is for riddle!)
 Commands:
     go [direction]
     get [item]
-    combine[inventory]
-    offer[your creation]
+    combine
+    offer
+    help
 
 ''')
 
@@ -36,7 +37,6 @@ def showStatus():
 #an inventory, which is initially empty
 inventory = []
 lives=2
-drink=''
 #a dictionary linking a room to other rooms
 ## A dictionary linking a room to other rooms
 rooms = {
@@ -45,7 +45,7 @@ rooms = {
                     'south' : 'Kitchen',
                     'message': ["he flips you the BIRDIE get me my drink, last chance",
                     "He raises a CLUB towards you this is wrong try again",
-                    "A golden bear sits before you in the den. It speaks to you 'I require MY bevarage fill up my glass and you shall be able to leave!'"]
+                    "The golden bear sits before you in the den. It speaks to you 'I require MY bevarage, fill up my glass and you shall be able to leave!'"]
                 },
 
             'Kitchen' : {
@@ -54,22 +54,24 @@ rooms = {
                     'west':'Cupboard',
                     'south' : 'Counter'
                     ,
-                    'message'  : ['You stand in a Vast kitchen a space s large you are confused why you walk to far before seeing whays on each wall'],
+                    'message'  : ['You stand in a Vast kitchen  the space is so large you can see what is on the wall clearly in each direction goose a cardnial direction and traverse the expanse'],
                 },
             'Icebox' : {
                     'west' : 'Kitchen',
                     'items' : ['tea','pepsi','whiskey','milk',
                     'chocolate sryup','yohoo','orange juice','lemonade',
-                    'vodka','champagne','ice', 'beer']
+                    'vodka','champagne','ice', 'beer'],
+                    'message' : ['You stand before an icebox with many ingriendents before you']
                     
                 },
             'Cupboard' : {
                     'east' : 'Kitchen',
-                    'items':['pint-glass', 'shot-glass', 'das-boot', 'tea-cup']
+                    'items':['pint-glass', 'shot-glass', 'das-boot', 'tea-cup'],
+                    'message' : ['You stand before a cupboard containing vessels']
                 },
             'Counter' : {
                     'north' : 'Kitchen',
-                    'message' : ['careful if you chose to create the drink all items will be taken and combined to create a drink']
+                    'message' : ['careful if you choose to combine all items will be taken and combined to create a drink']
             }
             }
 
@@ -133,7 +135,7 @@ while True:
         elif "vodka"in inventory and "orange juice"in inventory and 'pint-glass' in inventory and inventory.__len__()==3:
             inventory.clear()
             inventory.append('screwdriver')
-        elif "milk" and "pepsi" and ("pint-glass" or "shot-glass" or 'das-boot'or 'tea-cup' in inventory) and inventory.__len__()==3:
+        elif "milk"in inventory and "pepsi" in inventory and ("pint-glass" or "shot-glass" or 'das-boot'or 'tea-cup' in inventory) and inventory.__len__()==3:
             inventory.clear()
             inventory.append('pilk')
         elif "milk" in inventory and "chocolate sryup"in inventory and ("pint-glass" or "shot-glass" or 'das-boot'or 'tea-cup') in inventoryinventory.__len__()==3:
@@ -153,7 +155,7 @@ while True:
             print("Congrats Arnold Palmer just wanted an Arnold palmer good job, you may leave")
             break
         elif 'pilk' in inventory:
-            print("It matters not how much pilk is consumer a single drop of pilk is enough to kill\n Congrats You have killed Arnold Palmer")
+            print("It matters not how much pilk is consumed a single drop of pilk is enough to kill\n Congrats You have killed Arnold Palmer")
             break
         elif lives > 0:
             lives-=1
@@ -161,7 +163,9 @@ while True:
         else:
             print("The Golden Bear takes a nine iron to you and you have died")
             break
-    os.system('clear')   
+    #os.system('clear')  
+    if move[0] =='help':
+        showInstructions()
     if move[0] == 'combine' and currentRoom != 'Counter':
         print("You must be at the counter to do this")
 
