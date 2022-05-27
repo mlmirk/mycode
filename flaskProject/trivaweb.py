@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-
-## best practice says don't use commas in imports
+"""
+An aplication to run a locale machine o demonstate usage of flask and other libraries 
+by: Michael Mirkovic
+"""
 # use a single line for each import
 from flask import Flask
 from flask import redirect
@@ -13,7 +15,7 @@ from flask import jsonify
 
 
 
-
+#dictionary of questions
 QandA = {
     0:
     {
@@ -118,6 +120,7 @@ QandA = {
 #global variables for use inside the Flask app 
 x=0
 correct=0
+
 def main():
     app = Flask(__name__)
     @app.route("/",methods =["GET","POST"]) 
@@ -129,12 +132,15 @@ def main():
             #If "/" is hit in with a get
             if request.method == "GET":
                 return render_template("newquestion.html", question= QandA[x] , incorrectCorrect = False, correctAns=correct )
+            #if a post method hits this route check the question based on the value send back from the form stored in ans
             if request.method == "POST":
                 if request.form.get("ans"): 
                     answer1 = request.form.get("ans") 
                     if int(answer1) == QandA[x]["A"]:
+                        #increment globals to track the number right and what question they are on
                         correct+=1
                         x+=1
+                        #hit the "/" rout again and display next question
                         return redirect(("/"))
                     else:
                         x+=1
@@ -145,7 +151,7 @@ def main():
         #when finished redirect to final page and the ask to play agian
         return render_template("Final.html",correctAns=correct)
 
-
+    #route to provide a jsonifyed dictionary when requested. 
     @app.route("/jsonify")
     def jsonData():
         jsondata=json.dumps(QandA)
