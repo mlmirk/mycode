@@ -7,12 +7,14 @@ from flask import redirect
 from flask import url_for
 from flask import request
 from flask import render_template
+from questionBank import QandA
 
 app = Flask(__name__)
 ## This is where we want to redirect users to
 
 @app.route("/") 
 def start():
+    print(QandA)
     return render_template("question.html")
 
 @app.route("/correct") 

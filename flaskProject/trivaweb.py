@@ -1,3 +1,19 @@
+#!/usr/bin/python3
+
+## best practice says don't use commas in imports
+# use a single line for each import
+from flask import Flask
+from flask import redirect
+from flask import url_for
+from flask import request
+from flask import render_template
+from random import randint
+import json
+from flask import jsonify
+
+
+
+
 QandA = {
     0:
     {
@@ -73,7 +89,7 @@ QandA = {
     "A":2} , 
     9:
     {
-    "Question": "What was Lupin's code name on the radio show 'Potter Watch?'",
+    "Question": "What was Lupin's code name on the radio show 'Potter Watch'?",
     1:"Romulus", 
     2:'River',
     3:"Rapier" ,
@@ -97,3 +113,48 @@ QandA = {
     "A":3}
     
 }
+
+
+#global variables for use inside the Flask app 
+x=0
+correct=0
+def main():
+    app = Flask(__name__)
+    @app.route("/",methods =["GET","POST"]) 
+    def start():
+        #bring in the globals
+        global x,correct
+        #generate questions based off or the dict above incrementing global x 
+        while x < QandA.__len__():
+            #If "/" is hit in with a get
+            if request.method == "GET":
+                return render_template("newquestion.html", question= QandA[x] , incorrectCorrect = False, correctAns=correct )
+            if request.method == "POST":
+                if request.form.get("ans"): 
+                    answer1 = request.form.get("ans") 
+                    if int(answer1) == QandA[x]["A"]:
+                        correct+=1
+                        x+=1
+                        return redirect(("/"))
+                    else:
+                        x+=1
+                        return redirect(("/"))
+        #reset variables if someone what to play again
+        x=0
+        correct=0
+        #when finished redirect to final page and the ask to play agian
+        return render_template("Final.html",correctAns=correct)
+
+
+    @app.route("/jsonify")
+    def jsonData():
+        jsondata=json.dumps(QandA)
+        return jsonify(jsondata)
+    
+    app.run(host="0.0.0.0", port=2224) # runs the application
+    
+    
+
+    
+if __name__ == "__main__":
+    main()

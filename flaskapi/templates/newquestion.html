@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>multiple-choice quiz form</title>
+</head>
+{%if incorrectCorrect == true%}
+<h3>You got the last question wrong</h3>
+{%else%}
+<h3>Trivia</h3> 
+{% endif %}
+<h2>Number of Correct answers is {{correctAns}}</h2>
+
+<form action = "/" method = "POST">
+
+<P>{{question['Question']}}<BR>
+<input type="radio" name="ans" value="1">{{question[1]}}<BR>
+<input type="radio" name="ans" value="2">{{question[2]}}<BR>
+<input type="radio" name="ans" value="3">{{question[3]}}<BR>
+<input type="radio" name="ans" value="4">{{question[4]}}<BR>
+</p>
+
+<input type="submit" value="Submit">
+
+</form>
+</body>
+</html>

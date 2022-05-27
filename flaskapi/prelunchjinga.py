@@ -1,3 +1,17 @@
+#!/usr/bin/python3
+
+## best practice says don't use commas in imports
+# use a single line for each import
+from flask import Flask
+from flask import redirect
+from flask import url_for
+from flask import request
+from flask import render_template
+from random import randint
+
+
+
+
 QandA = {
     0:
     {
@@ -97,3 +111,55 @@ QandA = {
     "A":3}
     
 }
+
+
+
+x=0
+correct=0
+def main():
+    app = Flask(__name__)
+    @app.route("/",methods =["GET","POST"]) 
+    def start():
+        global x,correct
+        while x < QandA.__len__():
+            if request.method == "GET":
+                return render_template("newquestion.html", question= QandA[x] , incorrectCorrect = False, correctAns=correct )
+            if request.method == "POST":
+                if request.form.get("ans"): 
+                    answer1 = request.form.get("ans") 
+                    if int(answer1) == QandA[x]["A"]:
+                        correct+=1
+                        x+=1
+                        return redirect(("/"))
+                else:
+                    x+=1
+                    return render_template("newquestion.html",question= QandA[x], incorrectCorrect = True ,correctAns=correct)
+            return render_template("Final.html",correctAns=correct)
+
+
+    app.run(host="0.0.0.0", port=2224) # runs the application
+    
+    
+    
+    
+    """
+    @app.route("/correct") 
+    def correct():
+        newNum()
+        return render_template("newquestion.html",question= QandA[questNum],incorrectCorrect = False)
+    
+    @app.route("/answer", methods =["POST"])
+    def answer():
+        print(request.form.get("ans")) 
+        if request.method == "POST":
+            if request.form.get("ans"): 
+                answer1 = request.form.get("ans") 
+                if int(answer1) == QandA[questNum]["A"]:
+                    return redirect(url_for("correct"))
+        temp=False
+        return render_template("newquestion.html",question= QandA[questNum], incorrectCorrect = True)
+        """
+    
+    
+if __name__ == "__main__":
+    main()
